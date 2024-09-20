@@ -1,0 +1,51 @@
+*{
+    /*font-family: 'Roboto', sans-serif;*/
+	margin: 16px auto;
+}
+
+body{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+}
+
+main{
+    position: relative;
+    height: 100%;
+    top:50%;
+}
+
+h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    margin: auto;
+}
+
+
+input[type=text]{
+    padding: 16px;
+    margin: 16px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 0;
+    background-color: #D5D5D5;
+}
+input:focus{
+    outline: none;
+}
+
+button{
+    padding: 4px;
+    border-radius: 8px;
+    box-shadow: none;
+    border: 0;
+    width: 50%;
+    height: 50px;
+    font-size: 1rem;
+}
+
+a{
+    display: none;
+}

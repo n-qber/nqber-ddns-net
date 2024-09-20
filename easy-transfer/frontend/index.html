@@ -1,0 +1,42 @@
+<html>
+
+    <head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./style.css"/>
+
+	<title>NQBER - Varre varre vassourinha...</title>
+
+	<style>
+	
+	.tooth{z-index: -999}
+
+	</style>
+    </head>
+
+    <body>
+
+	<img class="tooth" src="./toothless-dancing-toothless.gif" style="position: absolute"/>
+
+        <form method="post" enctype="multipart/form-data" action="/easy-transfer/api/upload_file">
+
+
+            <h2 id="client-id"></h2>
+       
+            <input autocomplete="off" type="text" placeholder="Your friends ID" id="friend-id"/>
+            <br>
+            <input id="file" type="file" name="file1"/>
+
+            <br>
+            <button type="button" id="send-file-button">Send File</button>
+            <a href="./api/download_file" id="download-url"></a>
+
+        </form>
+
+        <script src="./client.js"></script>
+
+	<script src="./easter-egg.js"></script>
+    </body>
+
+</html>

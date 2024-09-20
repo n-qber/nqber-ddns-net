@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <style>
+      body{
+        background-color: #e6d3a0;
+        font-family: 'Courier New', Courier, monospace;
+      }
+      button {
+        padding: 8px;
+        border-radius: 7px;
+        font-size: 1em;
+        color: white;
+        background-color: #A542B4;
+      }
+      #square{
+        background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGdpGInnf5yZNh4arv0p-lfdO-b-0UDISUbjgPcVZLnA&s");
+      }
+      main {
+        max-width: 50%;
+        height: 50%;
+
+        margin: auto;
+        margin-top: 10%;
+        border-style: dotted;
+        padding: 10px;
+        border-radius: 5px;
+        border-color: #a69360;
+        text-align: center;
+      }
+      .inputdt{
+        padding: 10px;
+        text-align: left;
+      }
+      .buttons {
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+    /*
+    * Create form to request access token from Google's OAuth 2.0 server.
+    */
+    function oauthSignIn() {
+      // Google's OAuth 2.0 endpoint for requesting an access token
+      var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+      // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+      var form = document.createElement('form');
+      form.setAttribute('method', 'GET'); // Send as a GET request.
+      form.setAttribute('action', oauth2Endpoint);
+
+      // Parameters to pass to OAuth 2.0 endpoint.
+      var params = {'client_id': '341682529595-cu0g6lo8pq621bipiop0tdle1g4dck8i.apps.googleusercontent.com',
+                        'redirect_uri': window.location.href,
+                    'response_type': 'token',
+                    'scope': 'https://www.googleapis.com/auth/spreadsheets',
+                    'include_granted_scopes': 'true',
+                    'state': 'pass-through value'};
+
+      // Add form parameters as hidden input values.
+      for (var p in params) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', p);
+        input.setAttribute('value', params[p]);
+        form.appendChild(input);
+      }
+
+      // Add form to page and submit it to open the OAuth 2.0 endpoint.
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    var access_token = "";
+    window.addEventListener('load', () => {
+
+      access_token = (new URL(window.location.toLocaleString().replace('#', '?'))).searchParams.get('access_token')
+      if (!access_token){
+        access_token = prompt("Coloque o token (deixe em branco se nao souber oq ta acontecendo)")
+        if (access_token === "") oauthSignIn()
+      }
+
+    })
+
+
+    function buscarDados(){
+      const idn = document.querySelector('#idn').value.replaceAll(' ', '');
+      if (parseInt(idn) == NaN || idn.length > 3){
+        alert("O IDN não é um número válido!");
+        return;
+      }
+
+      //fetch
+      
+      fetch(`http://${window.location.host}/buscaDados?idn=${idn}&access_token=${access_token}&rnd=${Math.random()}` )
+        .then(async response => {
+          if (response.ok){
+            return response.json();
+          }
+
+          throw new Error((await response.json()).message);
+        })
+        .then(data => {
+          document.querySelector("#instituicao").innerText = data.instituicao;
+          document.querySelector("#square").style.backgroundColor = data.color;
+          document.querySelector("#idnLabel").innerText = data.idn;
+        })
+        .catch(err => {
+          console.log(err.message);
+          alert(err.message);
+        });
+    }
+
+    function receberSacolinha(){
+      buscarDados();
+      const idn = document.querySelector('#idn').value.replaceAll(' ', '');
+      if (parseInt(idn) == NaN || idn.length > 3){
+        alert("O IDN não é um número válido!");
+        return;
+      }
+
+      fetch(`http://${window.location.host}/receberSacolinha?idn=${idn}&access_token=${access_token}&rnd=${Math.random()}`)
+        .then(async response => {
+          if (response.ok){
+            return response.json();
+          }
+
+          throw new Error((await response.json()).message);
+        })
+        .then(data => {
+          alert("Mais uma sacolinha recebida!");
+          document.querySelector('#idnLabel').innerText += " recebida! =)";
+          document.querySelector('#recebida').src = "";
+        })
+        .catch(err => {
+          console.log(err.message);
+          alert(err.message);
+        });
+    }
+
+    </script>
+
+    <!-- <button onclick="oauthSignIn()">OAuth2</button> -->
+
+    <main>
+      <div class="inputdt">
+        
+        <label for="idn">Digite o IDN: </label>
+        <input type="text" id="idn"></input>
+        <br>
+
+        <label for="instituicao">Instituição:</label>
+        <h3 id="instituicao"></h3>
+
+        <label for="idnLabel">IDN Atual:</label>
+        <div id="idnLabel"></div>
+
+        <div id="square" style="width: 100px; height: 100px;"></div>
+        <img style="" src="" alt="" id="recebida">
+      </div>
+
+      <div class=".buttons">
+        <button onclick="buscarDados()">Buscar Dados</button>
+        <button onclick="receberSacolinha()">Receber Sacolinha!</button>
+      </div>
+    </main>
+  </body>
+</html>
