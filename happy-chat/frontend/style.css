@@ -1,0 +1,138 @@
+@font-face {
+    font-family: PictoChatFont;
+    src: url(fonts/pictochat.ttf);
+}
+
+html {
+    font-family: PictoChatFont;
+    background-color: #f0f0f0;
+}
+h2 {
+    font-size: 4em; 
+    font-weight: normal;
+}
+
+.header{
+    background: url(icons/gradient-top.png) repeat ,
+     linear-gradient(in hsl,#C0CCD4 10%,#5D7E95 80%); 
+     background-blend-mode:inherit;
+    background-size: contain;
+ 
+    padding:20px;
+    text-align: center;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #000000;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+}
+
+.footer{
+    background: url(icons/gradient-bottom.png) repeat ,
+     linear-gradient(in hsl,#5D7E95 10%,#C0CCD4 80%); 
+     background-blend-mode:inherit;
+    background-size: contain;
+ 
+    padding:20px;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 1em;
+    border-top: 1px solid #000000;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    min-height: 1em;
+}
+
+#Room-Cards{
+    margin-top: 8em;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+ 
+    height: 50%;
+    margin-bottom: 3em;
+}
+
+.Room-A{
+    all:unset;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 40em;
+    height: 5em;
+    border: #000000 1px solid;
+    font-family: PictoChatFont;
+    cursor:pointer;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+}
+.Room-A:hover{
+    background-color: gainsboro;
+    border-color:#007BFF;
+}
+.Icon-A{
+    background-image: url(icons/A-letter.svg);
+    width: 5em; /* Added width */
+    height: 5em; /* Added height */
+    background-size: contain; /* Ensure the image fits within the dimensions */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    display:flex;
+    margin-right:10px;
+    padding: 0;
+}   
+
+.align-left{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.Users-A{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+p{ 
+    font-size: 3em;
+    font-weight: normal;
+}
+
+#chat-input{
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 1em;
+}
+#chat-content{
+    display:block;
+    padding: 10px;
+    margin: 1em;
+    height: 50%;
+    overflow-y: auto;
+    border: #000000 3px solid;
+}
+.chatbox{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    margin: 1em;
+    border: #000000 1px solid;
+    background-color: #f0f0f0;
+    font-family: PictoChatFont;
+    cursor:pointer;
+    transition: background-color 0.3s;
+}

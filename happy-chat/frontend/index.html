@@ -1,0 +1,44 @@
+<!-- Uma parte pra escrever, e outra parte pra visualizar as mensagens -->
+<html>
+
+    <head>
+        <link rel="stylesheet" href="./style.css"/>
+
+    </head>
+
+    <body>
+        <h2 class="header">Choose a Chat Room to join.</h2>
+            <div id="Room-Cards">
+            <button class="Room-A">
+                <div class="align-left">
+                    <div class="Icon-A"></div>
+                    <p class="">Chat Room A</p>
+                </div>
+                <p> 1/16</p>
+                <div class="Room-Info"></div>
+            </button>
+            <button class="Room-A">
+                <div class="align-left">
+                    <div class="Icon-A"></div>
+                    <p class="">Chat Room B</p>
+                </div>
+                <p> 1/16</p>
+                <div class="Room-Info"></div>
+            </button>
+        </div>
+        
+        <div class="chatbox">
+            <div id="chat-content">
+            <!-- Chat content will be dynamically loaded here -->
+            </div>
+        </div>
+        <div id="chat-input">
+            <input type="text" id="message" placeholder="Type a message..." />
+            <button id="send">Send</button> 
+            </div>
+
+        <h2 class="footer"> <button id="back">Go back</button></h2>
+
+        <script src="client.js"></script>
+    </body>
+</html>
