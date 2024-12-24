@@ -5,12 +5,14 @@ require('express-ws')(app);
 
 const easyTransfer = require('./easy-transfer/backend/app');
 const ytDownload = require('./yt-download/backend/app');
+const happyChat = require('./happy-chat/backend/app');
 
 
 
 
 app.use('/easy-transfer', easyTransfer);
 app.use('/yt-download', ytDownload);
+app.use('/happy-chat', happyChat);
 
 const path = require('path');
 app.get('/', (req, res) => {

@@ -30,57 +30,63 @@ const fs = require('fs');
 const app = express.Router();
 const expressWs = require('express-ws')(app);
 
-import WebSocket from 'ws';
-
-const wss = new WebSocket.Server({ port: 8080,
-});
 const rooms ={}; //Armazena as salas
 
 //teoricamente isso deve funcionar...
 
-wss.on('connection', (ws) => {
-    ws.send('ok');
+app.use('/', express.static('./happy-chat/frontend'));
 
-    ws.on('message', (data) => {
+const wsClients = [];
 
-        let message;
-        try{
-            message = JSON.parse(data);
-        } catch (e) {
-            sendError(ws, 'Wrong format');
-            return;
-        }
+app.ws('/api', (ws, req) => {
+        wsClients.push(ws);
 
-        if (message.type ==='JOIN_ROOM'){
-            const room = message.room;
-            if(!rooms[room]){
-                rooms[room] = new Set();
+        ws.on('message', (data) => {
+
+            let message;
+            try{
+                message = JSON.parse(data);
+            } catch (e) {
+                sendError(ws, 'Wrong format');
+                return;
             }
-        rooms[room].add(ws); // Adiciona o cliente na sala 
-        ws.room = room;
-        ws.send(`Joined Room: ${room}`);
-        }
 
-        else if (message.type === 'NEW_MESSAGE'){
-            const room = ws.room;
-            if(room && rooms[room]){
-                rooms[room].forEach(client => {
-                    if(client !== ws){
-                        client.send(data); //Envia a mensagem pra todos os clientes.
+            /*
+            if (message.type ==='JOIN_ROOM'){
+                const room = message.room;
+                if(!rooms[room]){
+                    rooms[room] = new Set();
+                }
+            rooms[room].add(ws); // Adiciona o cliente na sala 
+            ws.room = room;
+            ws.send(`Joined Room: ${room}`);
+            }
+
+            else */ if (message.type === 'NEW_MESSAGE'){
+                /*
+                const room = ws.room;
+                if(room && rooms[room]){
+                    rooms[room].forEach(client => {
+                        if(client !== ws){
+                            client.send(data); //Envia a mensagem pra todos os clientes.
+                        }
+                    });
+                }*/
+                console.log(wsClients);
+                wsClients.forEach((client) => {
+                    console.log(client)
+                    if (true) {
+                        try{
+                            client.send(data);
+                        }catch(err)
+                        {
+                            const i = wsClients.indexOf(client);
+                            wsClients.splice(i, 1);
+                        }
                     }
                 });
             }
-        }
-        console.log(data);
-        wss.clients.forEach((client) => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        });
-});
+    });
 });
 
-ws.send(JSON.stringify(messageObject));
-
-
-
+module.exports = app

@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     const back = document.getElementById('back');
     const chatbox = document.querySelector('.chatbox');
-    const chat_input = document.getElementById('chat-input');
+    const chat_input = document.getElementById('message');
     const sendbtn = document.getElementById('send');
+    const ws = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port + '/happy-chat/api');
+    let roomName = ""
 
     // Hide chat content
     chatbox.style.display = 'none';
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //Verifica qual sala foi selecionada
     rooms.forEach(room => {
         room.addEventListener('click', function() {
-            const roomName = this.querySelector('p').textContent.trim();
+            roomName = this.querySelector('p').textContent.trim();
             loadChatRoom(roomName);
         });
     });
@@ -47,5 +49,17 @@ document.addEventListener('DOMContentLoaded', function() {
         chat_input.style.display = 'flex';
         console.log(roomName);
 
+
     }
+
+    ws.addEventListener('message', ev => {
+        if(!ev.data) return;
+        const msg = JSON.parse(ev.data);
+        if(msg.type == "NEW_MESSAGE" && msg.room == roomName)
+        {
+            const p = document.createElement('p');
+            p.innerText = msg.message;
+            chatContent.appendChild(p);
+        }
+    });
 });
