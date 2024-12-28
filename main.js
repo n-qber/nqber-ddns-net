@@ -16,9 +16,10 @@ app.use('/happy-chat', happyChat);
 
 const path = require('path');
 app.get('/', (req, res) => {
-    return res.redirect(301, "/easy-transfer");
-    //return res.sendFile(__dirname + "/index.html")
+    //return res.redirect(301, "/easy-transfer");
+    return res.sendFile(__dirname + "/index.html")
 });
+app.use('/icons', express.static('icons'))
 
 app.get('/Islets.zip', (req, res) => {
    return res.sendFile(__dirname + "/Islets.zip");

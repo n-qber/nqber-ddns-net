@@ -6,36 +6,77 @@
     <style>
 
     nav{
+        display: flex;
+        flex-direction: row;
+        /*justify-content: space-around;*/
+        justify-content: center;
+        margin-top: -5%;
+        gap: 24px;
         width: 100%;
         height: 100%;
-        text-align: center;
         padding-top:22%;
     }
 
-    a{
-        text-decoration: none;
+    .service{
         background-color: #CCC;
         padding: 12px;
         border-radius: 10px;
-        transition: 100;
     }
-    a:hover{
+    span{
+        text-decoration: none;
+        font-size: 1.3rem;
+        font-family: sans-serif;
+        transition: 200ms;
+    }
+    .service:hover{
         background-color: #A020F0;
-        color: white;
         box-shadow: black 2px 2px;
-        transition: 100ms;
+        transition: 200ms;
+    }
+    .service:hover > span{
+        font-size: 1.5rem;
+        color: white;
+        transition: 200ms;
     }
 
-
+    .service{
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .service > img {
+        width: 10vw;
+        height: 10vw;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: 200ms;
+    }
+    .service:hover > img {
+        width: 12vw;
+        height: 12vw;
+        object-fit: cover;
+        transition: 200ms;
+    }
 
     </style>
 </head>
 <body>
-    
+
     <nav>
-        <a href="/easy-transfer">Transfer files!!!</a>
-        <a href="/yt-download">Download Youtube Videos!!</a>
+        <a href="/easy-transfer">
+            <span class="service">
+                <span>Transfer files!!!</span>
+                <img src="/icons/easy-transfer.jpg">
+            </span>
+        </a>
+        <a href="/happy-chat">
+            <span class="service">
+                <span>Chat!!</span>
+                <img src="/icons/chat.png">
+            </span>
+        </a>
     </nav>
-    
+
 </body>
 </html>
