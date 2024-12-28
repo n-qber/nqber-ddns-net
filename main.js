@@ -9,10 +9,10 @@ const happyChat = require('./happy-chat/backend/app');
 
 
 
-
 app.use('/easy-transfer', easyTransfer);
 app.use('/yt-download', ytDownload);
 app.use('/happy-chat', happyChat);
+app.use('/qrcode', express.static('qrcode'));
 
 const path = require('path');
 app.get('/', (req, res) => {

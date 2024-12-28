@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>QRCODE</title>
+
+    <style>
+
+        html, body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+
+        }
+
+        .root{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        span{
+            border-radius: 12px;
+            background: #CCC;
+            display: inline-flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 24px;
+            gap: 24px;
+        }
+
+        .left{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 50%;
+        }
+        .link{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        input{
+            font-size: 1.3rem;
+            height: 1.3rem;
+        }
+
+        button{
+            height: 100%;
+        }
+        canvas{
+            max-width: 300px;
+            max-height: 300px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="root">
+        <span>
+            <div class="left">
+                <div class="link">
+                    <label for="link">Coloque o link:</label>
+                    <input name="link" id="link" placeholder="http://nqber.ddns.net"/>
+                </div>
+                <button onclick="gerarQRCode()" type="button">GERAR QRCODE</button>
+            </div>
+            <canvas id="canvas"></canvas>
+        </span>
+    </div>
+
+    <script src="./qrcode.js"></script>
+    <script>
+        document.getElementById('link').addEventListener('keydown', e => {
+            // https://stackoverflow.com/questions/16011312/how-can-i-execute-a-function-on-pressing-the-enter-key-in-an-input-field
+            if(e.code === "Enter")
+            {
+                gerarQRCode();
+            }
+        })
+        function gerarQRCode()
+        {
+            const lEl = document.getElementById("link");
+            const canvas = document.getElementById('canvas');
+            if(!lEl.value)
+            {
+                alert("Coloque algum conteúdo para seu qr code!");
+                return;
+            }
+            QRCode.toCanvas(canvas, lEl.value, {width: 512}, function(error) {
+                if(error)
+                {
+                    alert("Houve algum erro: " + JSON.stringify(error));
+                }
+            })
+        }
+        QRCode.toCanvas(document.getElementById('canvas'), "http://nqber.ddns.net/", {width: 512})
+    </script>
+
+</body>
+</html>
